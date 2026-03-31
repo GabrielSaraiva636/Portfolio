@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard de Cliente | Growth Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="gradient-bg"></div>
+
+  <header class="header container">
+    <a href="../../../index.html" class="back-link">← Voltar ao portfólio</a>
+    <div class="header-actions">
+      <button id="seedDataBtn" type="button">Gerar dados demo</button>
+      <button id="resetDataBtn" type="button" class="danger">Resetar dados</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Projeto realista</p>
+        <h1>Dashboard de Performance Comercial</h1>
+        <p class="subtitle">
+          Painel com métricas de aquisição e conversão, alimentado por eventos reais de formulário e persistência local.
+        </p>
+      </div>
+      <div class="chip-list">
+        <span>Analytics</span>
+        <span>Eventos de Clique</span>
+        <span>LocalStorage</span>
+      </div>
+    </section>
+
+    <section class="stats-grid">
+      <article class="metric-card"><p>Leads totais</p><strong id="metricLeads">0</strong></article>
+      <article class="metric-card"><p>Vendas totais</p><strong id="metricSales">0</strong></article>
+      <article class="metric-card"><p>Conversão média</p><strong id="metricRate">0%</strong></article>
+      <article class="metric-card"><p>Faturamento</p><strong id="metricRevenue">R$ 0,00</strong></article>
+    </section>
+
+    <section class="grid-layout">
+      <article class="panel">
+        <h2>Novo lançamento de campanha</h2>
+        <form id="entryForm" class="form-grid">
+          <label>
+            Data
+            <input id="entryDate" type="date" required />
+          </label>
+          <label>
+            Canal
+            <select id="entryChannel" required>
+              <option value="">Selecione</option>
+              <option value="Instagram">Instagram</option>
+              <option value="Google Ads">Google Ads</option>
+              <option value="Indicacao">Indicação</option>
+              <option value="WhatsApp">WhatsApp</option>
+            </select>
+          </label>
+          <label>
+            Leads
+            <input id="entryLeads" type="number" min="1" required />
+          </label>
+          <label>
+            Vendas
+            <input id="entrySales" type="number" min="0" required />
+          </label>
+          <label>
+            Ticket médio (R$)
+            <input id="entryTicket" type="number" min="1" step="0.01" required />
+          </label>
+          <button type="submit" class="primary">Salvar lançamento</button>
+        </form>
+        <p id="entryFeedback" class="feedback" aria-live="polite"></p>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Evolução diária</h2>
+          <div class="chip-filter" id="channelFilters">
+            <button type="button" class="active" data-channel="all">Todos</button>
+            <button type="button" data-channel="Instagram">Instagram</button>
+            <button type="button" data-channel="Google Ads">Google Ads</button>
+            <button type="button" data-channel="Indicacao">Indicação</button>
+            <button type="button" data-channel="WhatsApp">WhatsApp</button>
+          </div>
+        </div>
+        <canvas id="trendCanvas" width="760" height="250"></canvas>
+      </article>
+    </section>
+
+    <section class="panel table-panel">
+      <div class="panel-head">
+        <h2>Relatório detalhado</h2>
+        <input id="searchInput" type="search" placeholder="Buscar por canal..." />
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Canal</th>
+              <th>Leads</th>
+              <th>Vendas</th>
+              <th>Conversão</th>
+              <th>Ticket</th>
+              <th>Receita</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="entriesBody"></tbody>
+        </table>
+      </div>
+      <p id="emptyEntries" class="empty">Nenhum registro encontrado para este filtro.</p>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
+

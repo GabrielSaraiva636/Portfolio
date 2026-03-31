@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Venda de Curso Online | Landing + CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="container topbar">
+    <a href="../../../index.html">← Voltar ao portfólio</a>
+    <button id="loadDemoBtn" type="button">Carregar leads demo</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Projeto realista</p>
+        <h1>Landing de Curso com Pipeline de Matrícula</h1>
+        <p class="subtitle">
+          Página de captação com formulário validado, FAQ interativo e gestão de leads em etapas de conversão com persistência local.
+        </p>
+        <div class="hero-tags">
+          <span>Copy & UX</span>
+          <span>Eventos de clique</span>
+          <span>LocalStorage</span>
+        </div>
+      </div>
+      <div class="offer-card">
+        <p>Programa Full Stack</p>
+        <h2>12 semanas</h2>
+        <ul>
+          <li>Aulas ao vivo + gravações</li>
+          <li>Mentoria semanal em grupo</li>
+          <li>Projeto final para portfólio</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="stats-grid">
+      <article><p>Leads captados</p><strong id="statLeads">0</strong></article>
+      <article><p>Em contato</p><strong id="statContact">0</strong></article>
+      <article><p>Matrículas</p><strong id="statEnrolled">0</strong></article>
+      <article><p>Conversão</p><strong id="statConversion">0%</strong></article>
+    </section>
+
+    <section class="content-grid">
+      <article class="panel">
+        <h2>Formulário de inscrição</h2>
+        <form id="leadForm" class="form-grid">
+          <label>
+            Nome completo
+            <input id="leadName" type="text" required />
+          </label>
+          <label>
+            E-mail
+            <input id="leadEmail" type="email" required />
+          </label>
+          <label>
+            WhatsApp
+            <input id="leadPhone" type="tel" required />
+          </label>
+          <label>
+            Nível atual
+            <select id="leadLevel" required>
+              <option value="">Selecione</option>
+              <option value="Iniciante">Iniciante</option>
+              <option value="Intermediario">Intermediário</option>
+              <option value="Migracao de carreira">Migração de carreira</option>
+            </select>
+          </label>
+          <label>
+            Turno preferido
+            <select id="leadShift" required>
+              <option value="">Selecione</option>
+              <option value="Noite">Noite</option>
+              <option value="Final de semana">Final de semana</option>
+              <option value="Misto">Misto</option>
+            </select>
+          </label>
+          <label class="full">
+            Objetivo
+            <textarea id="leadGoal" rows="3" placeholder="Ex: Quero entrar no mercado como dev front-end." required></textarea>
+          </label>
+          <label class="check full">
+            <input id="leadTerms" type="checkbox" required />
+            Autorizo o contato comercial sobre esta inscrição.
+          </label>
+          <button type="submit" class="full primary">Enviar inscrição</button>
+        </form>
+        <p id="leadFeedback" class="feedback" aria-live="polite"></p>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Pipeline de inscrições</h2>
+          <select id="statusFilter">
+            <option value="all">Todos os status</option>
+            <option value="Novo">Novo</option>
+            <option value="Contato">Contato</option>
+            <option value="Matriculado">Matriculado</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Perfil</th>
+                <th>Turno</th>
+                <th>Status</th>
+                <th>Data</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="leadsBody"></tbody>
+          </table>
+        </div>
+        <p id="emptyLeads" class="empty">Nenhum lead no status selecionado.</p>
+      </article>
+    </section>
+
+    <section class="panel faq-panel">
+      <h2>FAQ do curso</h2>
+      <div class="faq-item">
+        <button type="button" class="faq-question">Preciso saber programar para começar?</button>
+        <p class="faq-answer">Não. O curso começa do zero e acelera até projeto com deploy completo.</p>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-question">Tem suporte durante a semana?</button>
+        <p class="faq-answer">Sim, com canal dedicado e plantões em horários fixos para dúvidas.</p>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-question">Recebo certificado e revisão de currículo?</button>
+        <p class="faq-answer">Recebe certificado digital e sessão de preparação para entrevistas técnicas.</p>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commerce Operations | Java + Spring</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Archivo+Black&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="container topbar">
+    <a href="../../../index.html">← Voltar</a>
+    <span>Stack: Java | Spring Boot | MySQL</span>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <p class="kicker">Projeto 03</p>
+      <h1>Commerce Operations</h1>
+      <p>Painel de pedidos com foco operacional: fila, expedicao e entrega com indicadores de SLA.</p>
+    </section>
+
+    <section class="metrics">
+      <article><p>Pedidos ativos</p><strong id="kpiActive">0</strong></article>
+      <article><p>Em expedicao</p><strong id="kpiShipping">0</strong></article>
+      <article><p>Entregues</p><strong id="kpiDelivered">0</strong></article>
+      <article><p>Ticket medio</p><strong id="kpiAverage">R$ 0,00</strong></article>
+    </section>
+
+    <section class="layout">
+      <article class="panel">
+        <h2>Novo pedido</h2>
+        <form id="orderForm" class="grid">
+          <label>
+            Cliente
+            <input id="customerInput" required />
+          </label>
+          <label>
+            Canal
+            <select id="channelInput" required>
+              <option value="">Selecione</option>
+              <option>E-commerce</option>
+              <option>Marketplace</option>
+              <option>Loja fisica</option>
+            </select>
+          </label>
+          <label>
+            Valor
+            <input id="valueInput" type="number" min="1" step="0.01" required />
+          </label>
+          <label>
+            Prazo (dias)
+            <input id="deadlineInput" type="number" min="1" required />
+          </label>
+          <button class="primary" type="submit">Criar pedido</button>
+        </form>
+        <p id="feedback" aria-live="polite"></p>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Fila de pedidos</h2>
+          <button id="seedBtn" type="button">Carregar demo</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Canal</th>
+                <th>Status</th>
+                <th>Valor</th>
+                <th>Prazo</th>
+                <th>Acoes</th>
+              </tr>
+            </thead>
+            <tbody id="orderBody"></tbody>
+          </table>
+        </div>
+        <p id="emptyState" class="empty">Nenhum pedido ativo.</p>
+      </article>
+    </section>
+
+    <section class="panel architecture">
+      <h2>Arquitetura tecnica</h2>
+      <ul>
+        <li><code>backend/build.gradle</code> com dependencias Spring.</li>
+        <li><code>backend/src/main/java/com/portfolio/commerce/OrderController.java</code> com endpoints REST.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
+

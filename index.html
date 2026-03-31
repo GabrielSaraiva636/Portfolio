@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | Gabriel Saraiva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+  <div class="noise"></div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="#" class="brand">
+        <span>GA</span>
+        <div>
+          <small>Portfolio tecnico</small>
+          <strong>Gabriel Saraiva</strong>
+        </div>
+      </a>
+      <nav id="mainNav">
+        <a href="#projetos">Projetos</a>
+        <a href="#legado">Legado</a>
+        <a href="#fundamentos">Fundamentos</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <button id="themeBtn" class="ghost" type="button">Tema</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <p class="kicker">Front-end + Full Stack</p>
+      <h1>Projetos com stacks atuais de mercado, arquitetura realista e foco em produto.</h1>
+      <p class="hero-copy">
+        Estruturei este portfolio com linguagens em alta, separacao por pastas, escrita limpa e simulacoes de fluxo real com persistencia local.
+      </p>
+      <div class="hero-actions">
+        <a href="#projetos" class="btn primary">Ver projetos</a>
+        <a href="#fundamentos" class="btn ghost">Ver fundamentos</a>
+      </div>
+    </section>
+
+    <section id="fundamentos" class="container section">
+      <div class="section-head">
+        <p class="kicker">Fundamentos em alta</p>
+        <h2>O que empresas cobram hoje</h2>
+      </div>
+      <div class="pill-grid">
+        <article>
+          <h3>APIs e integrações</h3>
+          <p>REST, validacao, versionamento e contrato de dados.</p>
+        </article>
+        <article>
+          <h3>Persistencia e estado</h3>
+          <p>LocalStorage no front e modelagem pronta para banco relacional.</p>
+        </article>
+        <article>
+          <h3>Qualidade e organizacao</h3>
+          <p>Separacao por modulo, nomes consistentes e base para testes.</p>
+        </article>
+        <article>
+          <h3>Observabilidade</h3>
+          <p>Metrica de funil, KPI de negocio e leitura de resultados.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="projetos" class="container section">
+      <div class="section-head">
+        <p class="kicker">Projetos</p>
+        <h2>4 stacks diferentes, 4 layouts diferentes</h2>
+      </div>
+      <div class="project-grid">
+        <article class="project-card crm">
+          <p class="badge">TypeScript + Node</p>
+          <h3>SaaS CRM Pipeline</h3>
+          <p>Kanban de tickets comerciais com ciclo de etapa e backend em Express + PostgreSQL.</p>
+          <div class="tags"><span>TypeScript</span><span>Node.js</span><span>SQL</span></div>
+          <div class="card-actions">
+            <a class="btn ghost" href="projetos/mercado/saas-crm/index.html">Abrir projeto</a>
+            <button type="button" class="bookmark" data-project="saas-crm">Favoritar</button>
+          </div>
+        </article>
+
+        <article class="project-card finops">
+          <p class="badge">Python + Analytics</p>
+          <h3>FinOps Intelligence</h3>
+          <p>Painel de custos e receita com grafico em canvas e backend FastAPI para consolidacao.</p>
+          <div class="tags"><span>Python</span><span>FastAPI</span><span>Pandas</span></div>
+          <div class="card-actions">
+            <a class="btn ghost" href="projetos/mercado/finops-python/index.html">Abrir projeto</a>
+            <button type="button" class="bookmark" data-project="finops-python">Favoritar</button>
+          </div>
+        </article>
+
+        <article class="project-card commerce">
+          <p class="badge">Java + Spring</p>
+          <h3>Commerce Operations</h3>
+          <p>Gestao de pedidos com status operacional e backend enterprise em Spring Boot.</p>
+          <div class="tags"><span>Java</span><span>Spring Boot</span><span>MySQL</span></div>
+          <div class="card-actions">
+            <a class="btn ghost" href="projetos/mercado/commerce-java/index.html">Abrir projeto</a>
+            <button type="button" class="bookmark" data-project="commerce-java">Favoritar</button>
+          </div>
+        </article>
+
+        <article class="project-card go">
+          <p class="badge">Go + Realtime</p>
+          <h3>Logistica Realtime</h3>
+          <p>Controle de entregas por evento com estados de rota e backend em Go para alta concorrencia.</p>
+          <div class="tags"><span>Go</span><span>WebSocket</span><span>Redis</span></div>
+          <div class="card-actions">
+            <a class="btn ghost" href="projetos/mercado/logistica-go/index.html">Abrir projeto</a>
+            <button type="button" class="bookmark" data-project="logistica-go">Favoritar</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="legado" class="container section">
+      <div class="section-head">
+        <p class="kicker">Projetos v2</p>
+        <h2>Versoes profissionais que eu fiz antes</h2>
+      </div>
+      <div class="project-grid legacy-grid">
+        <article class="project-card legacy">
+          <p class="badge">Projeto v2</p>
+          <h3>Show de Bola - Gestão de Reservas</h3>
+          <p>Agenda com filtros, confirmação de pagamento e métricas de receita.</p>
+          <div class="tags"><span>JavaScript</span><span>UX</span><span>LocalStorage</span></div>
+          <div class="card-actions">
+            <a class="btn ghost" href="projetos/portfolio-v2/quadra/index.html">Abrir projeto</a>
+          </div>
+        </article>
+        <article class="project-card legacy">
+          <p class="badge">Projeto v2</p>
+          <h3>Dashboard de Cliente</h3>
+          <p>Painel com filtros por canal, KPI comercial e gráfico em canvas.</p>
+          <div class="tags"><span>Analytics</span><span>Canvas</span><span>LocalStorage</span></div>
+          <div class="card-actions">
+            <a class="btn ghost" href="projetos/portfolio-v2/dashboard/index.html">Abrir projeto</a>
+          </div>
+        </article>
+        <article class="project-card legacy">
+          <p class="badge">Projeto v2</p>
+          <h3>Venda de Curso Online</h3>
+          <p>Landing com FAQ interativo e pipeline de leads por estágio.</p>
+          <div class="tags"><span>Landing</span><span>Funil</span><span>LocalStorage</span></div>
+          <div class="card-actions">
+            <a class="btn ghost" href="projetos/portfolio-v2/curso/index.html">Abrir projeto</a>
+          </div>
+        </article>
+        <article class="project-card legacy">
+          <p class="badge">Projeto v2</p>
+          <h3>Terapeuta Fran</h3>
+          <p>Agenda com validação de horário, confirmação e depoimentos.</p>
+          <div class="tags"><span>Serviços</span><span>Agenda</span><span>LocalStorage</span></div>
+          <div class="card-actions">
+            <a class="btn ghost" href="projetos/portfolio-v2/terapeuta-fran/index.html">Abrir projeto</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contato" class="container section">
+      <div class="contact-card">
+        <div>
+          <p class="kicker">Contato</p>
+          <h2>Vamos evoluir para versao com backend real e deploy?</h2>
+          <p>Deixe um briefing. O formulario fica salvo localmente para simulacao de funil comercial.</p>
+        </div>
+        <form id="contactForm" class="contact-form">
+          <input name="name" type="text" placeholder="Seu nome" required />
+          <input name="email" type="email" placeholder="seu@email.com" required />
+          <textarea name="briefing" rows="4" placeholder="Descreva seu projeto" required></textarea>
+          <button type="submit" class="btn primary">Enviar briefing</button>
+          <p id="contactFeedback" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

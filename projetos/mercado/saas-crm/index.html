@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SaaS CRM Pipeline | TypeScript + Node</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="container topbar">
+    <a href="../../../index.html">← Voltar</a>
+    <span>Stack: TypeScript | Node.js | PostgreSQL</span>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <p class="kicker">Projeto 01</p>
+      <h1>SaaS CRM Pipeline</h1>
+      <p>Gestao de oportunidades comerciais com etapas, valor potencial e funil de conversao.</p>
+    </section>
+
+    <section class="metrics">
+      <article><p>Leads</p><strong id="kpiLead">0</strong></article>
+      <article><p>Propostas</p><strong id="kpiProposal">0</strong></article>
+      <article><p>Fechados</p><strong id="kpiWon">0</strong></article>
+      <article><p>Receita potencial</p><strong id="kpiRevenue">R$ 0,00</strong></article>
+    </section>
+
+    <section class="layout">
+      <article class="panel">
+        <h2>Novo ticket</h2>
+        <form id="ticketForm" class="grid">
+          <label>
+            Empresa
+            <input id="companyInput" required placeholder="Ex: Acme LTDA" />
+          </label>
+          <label>
+            Responsavel
+            <input id="ownerInput" required placeholder="Ex: Gabriel" />
+          </label>
+          <label>
+            Canal de origem
+            <select id="sourceInput" required>
+              <option value="">Selecione</option>
+              <option>Outbound</option>
+              <option>Inbound</option>
+              <option>Indicacao</option>
+              <option>Evento</option>
+            </select>
+          </label>
+          <label>
+            Valor estimado
+            <input id="valueInput" type="number" min="1" step="0.01" required />
+          </label>
+          <button class="primary" type="submit">Criar ticket</button>
+        </form>
+        <p id="feedback" aria-live="polite"></p>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Pipeline</h2>
+          <button id="seedBtn" type="button">Carregar demo</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Empresa</th>
+                <th>Owner</th>
+                <th>Origem</th>
+                <th>Etapa</th>
+                <th>Valor</th>
+                <th>Acoes</th>
+              </tr>
+            </thead>
+            <tbody id="ticketBody"></tbody>
+          </table>
+        </div>
+        <p id="emptyState" class="empty">Nenhum ticket cadastrado.</p>
+      </article>
+    </section>
+
+    <section class="panel architecture">
+      <h2>Arquitetura tecnica</h2>
+      <p>Esta pagina simula o frontend. A pasta backend inclui base de API em TypeScript e SQL.</p>
+      <ul>
+        <li><code>backend/server.ts</code> com rotas REST e validacao.</li>
+        <li><code>database/schema.sql</code> com estrutura de tabelas do CRM.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
+

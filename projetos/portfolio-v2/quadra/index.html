@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Show de Bola | Gestão de Reservas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+
+  <header class="topbar container">
+    <a href="../../../index.html" class="back-link">← Voltar ao portfólio</a>
+    <button id="seedBtn" class="ghost-btn" type="button">Carregar dados demo</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Projeto realista</p>
+        <h1>Show de Bola - Gestão de Reservas</h1>
+        <p class="subtitle">
+          Simulação de operação diária de quadra com cadastro de reservas, controle de pagamento e filtros para atendimento.
+        </p>
+      </div>
+      <div class="hero-chips">
+        <span>JavaScript ES2023</span>
+        <span>LocalStorage</span>
+        <span>UX Dashboard</span>
+      </div>
+    </section>
+
+    <section class="stats-grid">
+      <article class="stat-card">
+        <p>Reservas ativas</p>
+        <strong id="statTotal">0</strong>
+      </article>
+      <article class="stat-card">
+        <p>Horários hoje</p>
+        <strong id="statToday">0</strong>
+      </article>
+      <article class="stat-card">
+        <p>Receita prevista</p>
+        <strong id="statRevenue">R$ 0,00</strong>
+      </article>
+      <article class="stat-card">
+        <p>Pendente de recebimento</p>
+        <strong id="statPending">R$ 0,00</strong>
+      </article>
+    </section>
+
+    <section class="layout">
+      <article class="card">
+        <h2>Nova reserva</h2>
+        <form id="reservationForm" class="form-grid">
+          <label>
+            Nome do cliente
+            <input id="customerName" type="text" placeholder="Ex: Lucas Martins" required />
+          </label>
+          <label>
+            Telefone
+            <input id="customerPhone" type="tel" placeholder="(51) 99999-9999" required />
+          </label>
+          <label>
+            Data
+            <input id="reservationDate" type="date" required />
+          </label>
+          <label>
+            Hora
+            <select id="reservationHour" required>
+              <option value="">Selecione</option>
+              <option>18:00</option>
+              <option>19:00</option>
+              <option>20:00</option>
+              <option>21:00</option>
+              <option>22:00</option>
+            </select>
+          </label>
+          <label>
+            Tipo de quadra
+            <select id="courtType" required>
+              <option value="">Selecione</option>
+              <option value="Fut7">Fut7</option>
+              <option value="Futsal">Futsal</option>
+              <option value="Society">Society</option>
+            </select>
+          </label>
+          <label>
+            Duração
+            <select id="duration" required>
+              <option value="60">60 minutos</option>
+              <option value="90">90 minutos</option>
+              <option value="120">120 minutos</option>
+            </select>
+          </label>
+          <label>
+            Valor da reserva
+            <input id="reservationAmount" type="number" min="1" step="0.01" placeholder="Ex: 280" required />
+          </label>
+          <label>
+            Pagamento
+            <select id="paymentStatus" required>
+              <option value="pending">Pendente</option>
+              <option value="paid">Pago</option>
+            </select>
+          </label>
+          <div class="actions">
+            <button type="submit" class="primary-btn">Salvar reserva</button>
+            <button type="button" id="clearAllBtn" class="danger-btn">Limpar tudo</button>
+          </div>
+        </form>
+        <p id="formFeedback" class="feedback" aria-live="polite"></p>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <h2>Agenda de reservas</h2>
+          <div class="filter-row">
+            <input id="filterDate" type="date" />
+            <select id="filterPayment">
+              <option value="all">Todos pagamentos</option>
+              <option value="paid">Pago</option>
+              <option value="pending">Pendente</option>
+            </select>
+            <input id="searchCustomer" type="search" placeholder="Buscar cliente" />
+            <button id="clearFiltersBtn" class="ghost-btn" type="button">Limpar filtros</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Quadra</th>
+                <th>Duração</th>
+                <th>Valor</th>
+                <th>Pagamento</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="reservationsBody"></tbody>
+          </table>
+          <p id="emptyState" class="empty-state">Nenhuma reserva encontrada para os filtros atuais.</p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
+

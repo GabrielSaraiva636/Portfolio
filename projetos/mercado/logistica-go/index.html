@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logistica Realtime | Go + WebSocket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="container topbar">
+    <a href="../../../index.html">← Voltar</a>
+    <span>Stack: Go | WebSocket | Redis</span>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <p class="kicker">Projeto 04</p>
+      <h1>Logistica Realtime</h1>
+      <p>Monitoramento de entregas por evento, com status de rota e leitura rapida de risco operacional.</p>
+    </section>
+
+    <section class="metrics">
+      <article><p>Em rota</p><strong id="kpiRoute">0</strong></article>
+      <article><p>Atrasadas</p><strong id="kpiDelay">0</strong></article>
+      <article><p>Concluidas</p><strong id="kpiDone">0</strong></article>
+      <article><p>ETA medio</p><strong id="kpiEta">0 min</strong></article>
+    </section>
+
+    <section class="layout">
+      <article class="panel">
+        <h2>Novo evento de entrega</h2>
+        <form id="eventForm" class="grid">
+          <label>
+            Motorista
+            <input id="driverInput" required />
+          </label>
+          <label>
+            Veiculo
+            <input id="vehicleInput" required placeholder="Ex: VAN-2041" />
+          </label>
+          <label>
+            Origem
+            <input id="originInput" required />
+          </label>
+          <label>
+            Destino
+            <input id="destinationInput" required />
+          </label>
+          <label>
+            ETA (min)
+            <input id="etaInput" type="number" min="5" required />
+          </label>
+          <button class="primary" type="submit">Criar evento</button>
+        </form>
+        <p id="feedback" aria-live="polite"></p>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Feed operacional</h2>
+          <button id="seedBtn" type="button">Carregar demo</button>
+        </div>
+        <div class="timeline" id="timeline"></div>
+        <p id="emptyState" class="empty">Nenhum evento operacional.</p>
+      </article>
+    </section>
+
+    <section class="panel architecture">
+      <h2>Arquitetura tecnica</h2>
+      <ul>
+        <li><code>backend/main.go</code> com endpoint REST e canal WebSocket.</li>
+        <li>Modelo de evento pronto para publicacao em fila (Redis/Kafka).</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
+

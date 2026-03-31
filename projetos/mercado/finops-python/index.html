@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinOps Intelligence | Python + FastAPI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Merriweather:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="container topbar">
+    <a href="../../../index.html">← Voltar</a>
+    <span>Stack: Python | FastAPI | Pandas</span>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <p class="kicker">Projeto 02</p>
+      <h1>FinOps Intelligence</h1>
+      <p>Consolidacao de receita e custos por categoria com leitura rapida para decisao operacional.</p>
+    </section>
+
+    <section class="metrics">
+      <article><p>Receita</p><strong id="kpiIncome">R$ 0,00</strong></article>
+      <article><p>Custo</p><strong id="kpiExpense">R$ 0,00</strong></article>
+      <article><p>Saldo</p><strong id="kpiBalance">R$ 0,00</strong></article>
+      <article><p>Margem</p><strong id="kpiMargin">0%</strong></article>
+    </section>
+
+    <section class="layout">
+      <article class="panel">
+        <h2>Novo lancamento</h2>
+        <form id="entryForm" class="grid">
+          <label>
+            Data
+            <input id="dateInput" type="date" required />
+          </label>
+          <label>
+            Categoria
+            <select id="categoryInput" required>
+              <option value="">Selecione</option>
+              <option>Infra</option>
+              <option>Marketing</option>
+              <option>Vendas</option>
+              <option>Produto</option>
+              <option>Receita SaaS</option>
+            </select>
+          </label>
+          <label>
+            Tipo
+            <select id="typeInput" required>
+              <option value="income">Receita</option>
+              <option value="expense">Despesa</option>
+            </select>
+          </label>
+          <label>
+            Valor
+            <input id="amountInput" type="number" min="1" step="0.01" required />
+          </label>
+          <button class="primary" type="submit">Salvar</button>
+        </form>
+        <p id="feedback" aria-live="polite"></p>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Resumo por categoria</h2>
+          <button id="seedBtn" type="button">Carregar demo</button>
+        </div>
+        <canvas id="chart" width="560" height="240"></canvas>
+      </article>
+    </section>
+
+    <section class="panel table-panel">
+      <h2>Historico de movimentacoes</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Categoria</th>
+              <th>Tipo</th>
+              <th>Valor</th>
+              <th>Acoes</th>
+            </tr>
+          </thead>
+          <tbody id="entryBody"></tbody>
+        </table>
+      </div>
+      <p id="emptyState" class="empty">Nenhum lancamento registrado.</p>
+    </section>
+
+    <section class="panel architecture">
+      <h2>Arquitetura tecnica</h2>
+      <ul>
+        <li><code>backend/main.py</code> com endpoint de consolidacao por categoria.</li>
+        <li>Modelo de entrada compativel com ETL simples em Python.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
+

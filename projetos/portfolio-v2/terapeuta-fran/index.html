@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terapeuta Fran | Agenda de Sessões</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="bg-blob blob-a"></div>
+  <div class="bg-blob blob-b"></div>
+
+  <header class="container topbar">
+    <a href="../../../index.html">← Voltar ao portfólio</a>
+    <button id="demoAppointmentsBtn" type="button">Carregar agenda demo</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Projeto realista</p>
+        <h1>Site de Terapia com Agenda e Jornada de Contato</h1>
+        <p class="subtitle">
+          Página pensada para captação de pacientes, com agendamento online, validação de horários e acompanhamento de confirmações.
+        </p>
+        <div class="hero-tags">
+          <span>Saúde & UX</span>
+          <span>LocalStorage</span>
+          <span>Eventos de clique</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <p>Atendimento humanizado</p>
+        <h2>Consulta inicial: 50 min</h2>
+        <p>Modalidade presencial ou online com foco em ansiedade, autoestima e relacionamento.</p>
+      </div>
+    </section>
+
+    <section class="services-grid">
+      <article><h3>Terapia Individual</h3><p>Plano terapêutico com metas e evolução contínua.</p></article>
+      <article><h3>Terapia de Casal</h3><p>Mediação com escuta ativa e técnicas de comunicação.</p></article>
+      <article><h3>Plantão Emocional</h3><p>Atendimento rápido para momentos de crise.</p></article>
+    </section>
+
+    <section class="stats-grid">
+      <article><p>Sessões agendadas</p><strong id="statScheduled">0</strong></article>
+      <article><p>Confirmadas</p><strong id="statConfirmed">0</strong></article>
+      <article><p>Online</p><strong id="statOnline">0</strong></article>
+      <article><p>Taxa de confirmação</p><strong id="statRate">0%</strong></article>
+    </section>
+
+    <section class="content-grid">
+      <article class="panel">
+        <h2>Agendar consulta</h2>
+        <form id="appointmentForm" class="form-grid">
+          <label>
+            Nome
+            <input id="patientName" type="text" required />
+          </label>
+          <label>
+            E-mail
+            <input id="patientEmail" type="email" required />
+          </label>
+          <label>
+            Serviço
+            <select id="serviceType" required>
+              <option value="">Selecione</option>
+              <option value="Terapia Individual">Terapia Individual</option>
+              <option value="Terapia de Casal">Terapia de Casal</option>
+              <option value="Plantao Emocional">Plantão Emocional</option>
+            </select>
+          </label>
+          <label>
+            Formato
+            <select id="sessionMode" required>
+              <option value="">Selecione</option>
+              <option value="Online">Online</option>
+              <option value="Presencial">Presencial</option>
+            </select>
+          </label>
+          <label>
+            Data
+            <input id="sessionDate" type="date" required />
+          </label>
+          <label>
+            Horário
+            <select id="sessionHour" required>
+              <option value="">Selecione</option>
+              <option>09:00</option>
+              <option>10:00</option>
+              <option>14:00</option>
+              <option>15:00</option>
+              <option>19:00</option>
+            </select>
+          </label>
+          <button class="primary" type="submit">Confirmar agendamento</button>
+        </form>
+        <p id="appointmentFeedback" class="feedback" aria-live="polite"></p>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Agenda atual</h2>
+          <input id="searchPatient" type="search" placeholder="Buscar paciente" />
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Paciente</th>
+                <th>Serviço</th>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Formato</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="appointmentsBody"></tbody>
+          </table>
+        </div>
+        <p id="emptyAppointments" class="empty">Nenhum paciente encontrado para este filtro.</p>
+      </article>
+    </section>
+
+    <section class="panel testimonials">
+      <div class="panel-head">
+        <h2>Depoimentos</h2>
+        <div class="carousel-actions">
+          <button id="prevTestimonial" type="button">Anterior</button>
+          <button id="nextTestimonial" type="button">Próximo</button>
+        </div>
+      </div>
+      <blockquote id="testimonialQuote"></blockquote>
+      <p id="testimonialAuthor"></p>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
+

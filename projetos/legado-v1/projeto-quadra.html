@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quadra Esportiva | Legado</title>
+  <style>
+    body { margin: 0; font-family: Inter, system-ui, sans-serif; background: #0d1630; color: #f5f7ff; }
+    header { background: #2858cc; color: #fff; padding: 1rem; text-align: center; }
+    main { width: min(93%, 960px); margin: 1rem auto; }
+    section { background: #111f4f; padding: 1rem; border-radius: 12px; margin: .7rem 0; }
+    button, input, select { font: inherit; border-radius: 8px; border: 1px solid #3250c0; padding: .45rem; margin-top: .25rem; width: 100%; }
+    button { background: #24a2ff; color: #fff; border: none; cursor: pointer; }
+    table { width: 100%; border-collapse: collapse; margin-top: .7rem; }
+    th, td { border: 1px solid #2f4f9e; padding: .45rem; text-align: left; }
+    .back { display: inline-block; color: #8ac4ff; margin-bottom: .7rem; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../../index.html">← Voltar ao portfólio</a>
+  </main>
+  <header>
+    <h1>Quadra Esportiva (Legado)</h1>
+    <p>Sistema de agendamento simples com reservas.</p>
+  </header>
+  <main>
+    <section>
+      <h2>Reservar horário</h2>
+      <form id="resForm">
+        <label>Nome<input id="nome" required /></label>
+        <label>Data<input id="data" type="date" required /></label>
+        <label>Hora
+          <select id="hora">
+            <option>08:00</option>
+            <option>09:00</option>
+            <option>10:00</option>
+            <option>11:00</option>
+          </select>
+        </label>
+        <button type="submit">Reservar</button>
+      </form>
+      <p id="resMsg" style="color:#7ef"></p>
+    </section>
+    <section>
+      <h2>Reservas</h2>
+      <table>
+        <thead>
+          <tr><th>Nome</th><th>Data</th><th>Hora</th></tr>
+        </thead>
+        <tbody id="reservas">
+          <tr><td>Gabriel</td><td>19/03/2026</td><td>08:00</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <script>
+    const form = document.getElementById("resForm");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const nome = document.getElementById("nome").value;
+      const data = document.getElementById("data").value;
+      const hora = document.getElementById("hora").value;
+      const tabela = document.getElementById("reservas");
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${nome}</td><td>${data}</td><td>${hora}</td>`;
+      tabela.appendChild(row);
+      document.getElementById("resMsg").textContent = "Reserva confirmada!";
+      form.reset();
+    });
+  </script>
+</body>
+</html>
