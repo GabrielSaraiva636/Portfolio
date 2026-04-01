@@ -19,17 +19,42 @@
     <section class="hero">
       <p class="kicker">Projeto 01</p>
       <h1>SaaS CRM Pipeline</h1>
-      <p>Gestao de oportunidades comerciais com etapas, valor potencial e funil de conversao.</p>
+      <p>Gestão de oportunidades com Kanban, papéis de operação e histórico de movimentação do funil.</p>
     </section>
 
     <section class="metrics">
       <article><p>Leads</p><strong id="kpiLead">0</strong></article>
-      <article><p>Propostas</p><strong id="kpiProposal">0</strong></article>
+      <article><p>Negociação</p><strong id="kpiProposal">0</strong></article>
       <article><p>Fechados</p><strong id="kpiWon">0</strong></article>
       <article><p>Receita potencial</p><strong id="kpiRevenue">R$ 0,00</strong></article>
     </section>
 
     <section class="layout">
+      <article class="panel">
+        <h2>Sessão operacional</h2>
+        <form id="loginForm" class="grid">
+          <label>
+            E-mail
+            <input id="loginEmail" type="email" required placeholder="Ex: gabriel@crm.com" />
+          </label>
+          <label>
+            Senha
+            <input id="loginPassword" type="password" required placeholder="••••••••" />
+          </label>
+          <label>
+            Role
+            <select id="loginRole" required>
+              <option value="sdr">SDR</option>
+              <option value="closer">Closer</option>
+              <option value="manager">Manager</option>
+            </select>
+          </label>
+          <button class="primary" type="submit">Entrar</button>
+        </form>
+        <div id="sessionInfo" class="session-info"></div>
+        <button id="logoutBtn" type="button" class="secondary">Encerrar sessão</button>
+      </article>
+
       <article class="panel">
         <h2>Novo ticket</h2>
         <form id="ticketForm" class="grid">
@@ -55,41 +80,39 @@
             Valor estimado
             <input id="valueInput" type="number" min="1" step="0.01" required />
           </label>
+          <label>
+            Data alvo
+            <input id="targetDateInput" type="date" required />
+          </label>
           <button class="primary" type="submit">Criar ticket</button>
         </form>
         <p id="feedback" aria-live="polite"></p>
       </article>
+    </section>
 
-      <article class="panel">
-        <div class="panel-head">
-          <h2>Pipeline</h2>
-          <button id="seedBtn" type="button">Carregar demo</button>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Empresa</th>
-                <th>Owner</th>
-                <th>Origem</th>
-                <th>Etapa</th>
-                <th>Valor</th>
-                <th>Acoes</th>
-              </tr>
-            </thead>
-            <tbody id="ticketBody"></tbody>
-          </table>
-        </div>
-        <p id="emptyState" class="empty">Nenhum ticket cadastrado.</p>
-      </article>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Pipeline Kanban (drag-and-drop)</h2>
+        <button id="seedBtn" type="button">Carregar demo</button>
+      </div>
+      <div id="pipelineBoard" class="kanban-board"></div>
+      <p id="emptyState" class="empty">Nenhum ticket cadastrado.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Histórico de movimentação</h2>
+      </div>
+      <ul id="historyList" class="history-list"></ul>
+      <p id="emptyHistory" class="empty">Sem movimentações registradas.</p>
     </section>
 
     <section class="panel architecture">
       <h2>Arquitetura tecnica</h2>
-      <p>Esta pagina simula o frontend. A pasta backend inclui base de API em TypeScript e SQL.</p>
+      <p>Esta página simula o frontend. A pasta backend inclui API TypeScript com auth/roles e histórico.</p>
       <ul>
-        <li><code>backend/server.ts</code> com rotas REST e validacao.</li>
-        <li><code>database/schema.sql</code> com estrutura de tabelas do CRM.</li>
+        <li><code>backend/server.ts</code> com rotas REST, sessão e transição de estágio.</li>
+        <li><code>database/schema.sql</code> com usuários, sessões e trilha de auditoria.</li>
       </ul>
     </section>
   </main>

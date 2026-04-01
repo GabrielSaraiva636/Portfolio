@@ -32,6 +32,10 @@ p {
   margin: 0;
 }
 
+small {
+  color: #9db1da;
+}
+
 label {
   display: flex;
   flex-direction: column;
@@ -131,7 +135,7 @@ button {
 
 .layout {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -156,6 +160,24 @@ button {
   background: linear-gradient(130deg, #5be0ff, #8effd8);
 }
 
+.secondary {
+  margin-top: 10px;
+  width: 100%;
+  border: 1px solid #3a4f83;
+  background: #172242;
+  color: #d6e3ff;
+}
+
+.session-info {
+  margin-top: 10px;
+  border: 1px solid #334a7c;
+  border-radius: 10px;
+  padding: 10px;
+  background: #111a35;
+  display: grid;
+  gap: 3px;
+}
+
 #feedback {
   margin-top: 10px;
   min-height: 18px;
@@ -177,73 +199,109 @@ button {
   padding: 0 12px;
 }
 
-.table-wrap {
+.kanban-board {
   margin-top: 10px;
-  overflow: auto;
-  border-radius: 10px;
-  border: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(220px, 1fr));
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
 }
 
-table {
-  width: 100%;
-  min-width: 700px;
-  border-collapse: collapse;
+.kanban-column {
+  border: 1px solid #32497d;
+  border-radius: 12px;
+  background: #111933;
+  min-height: 220px;
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 
-th,
-td {
-  text-align: left;
-  border-bottom: 1px solid #273764;
+.kanban-column header {
+  border-bottom: 1px solid #2f4472;
   padding: 10px;
+  display: grid;
+  gap: 4px;
 }
 
-th {
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.72rem;
-  color: #97addf;
-  background: #0f1a35;
+.kanban-column h3 {
+  margin: 0;
+  font-size: 0.94rem;
 }
 
-.stage {
-  border-radius: 999px;
-  padding: 4px 9px;
-  font-size: 0.72rem;
-  font-weight: 700;
+.column-body {
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+  align-content: start;
 }
 
-.stage.lead {
-  background: #27406f;
-  color: #bdd8ff;
+.ticket-card {
+  border: 1px solid #355086;
+  border-radius: 10px;
+  background: #162348;
+  padding: 10px;
+  display: grid;
+  gap: 4px;
+  cursor: grab;
 }
 
-.stage.proposal {
-  background: #48346c;
-  color: #e3d3ff;
+.ticket-card.dragging {
+  opacity: 0.45;
 }
 
-.stage.won {
-  background: #1e5c4e;
-  color: #cafde8;
+.ticket-card strong {
+  font-size: 0.92rem;
+}
+
+.ticket-card p {
+  color: #aac0eb;
+  font-size: 0.8rem;
+}
+
+.ticket-card footer {
+  margin-top: 6px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.kanban-column.drag-over {
+  border-color: #77a3ff;
+  background: #16244a;
 }
 
 .action {
   min-height: 32px;
-  padding: 0 10px;
+  padding: 0 8px;
   border: none;
   border-radius: 9px;
   color: #021426;
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  margin-right: 6px;
 }
 
 .action.next {
   background: linear-gradient(130deg, #6fd9ff, #a6eeff);
 }
 
+.action.lost {
+  background: linear-gradient(130deg, #ffc57e, #ffd9ad);
+}
+
 .action.delete {
   background: linear-gradient(130deg, #ff8f9b, #ffbcc4);
+}
+
+.history-list {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.history-list li {
+  color: #b0c0e6;
 }
 
 .empty {
@@ -272,6 +330,10 @@ th {
 
   .layout {
     grid-template-columns: 1fr;
+  }
+
+  .kanban-board {
+    grid-template-columns: repeat(5, minmax(260px, 1fr));
   }
 }
 

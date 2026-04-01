@@ -19,7 +19,7 @@
     <section class="hero">
       <p class="kicker">Projeto 04</p>
       <h1>Logistica Realtime</h1>
-      <p>Monitoramento de entregas por evento, com status de rota e leitura rapida de risco operacional.</p>
+      <p>Monitoramento de entregas por evento com heartbeat websocket, reconexão automática e alertas de SLA.</p>
     </section>
 
     <section class="metrics">
@@ -61,18 +61,37 @@
       <article class="panel">
         <div class="panel-head">
           <h2>Feed operacional</h2>
-          <button id="seedBtn" type="button">Carregar demo</button>
+          <div class="panel-actions">
+            <span id="wsStatus" class="ws-status offline">WS Offline</span>
+            <button id="seedBtn" type="button">Carregar demo</button>
+          </div>
         </div>
+        <p class="heartbeat">Último heartbeat: <strong id="lastHeartbeat">--</strong></p>
         <div class="timeline" id="timeline"></div>
         <p id="emptyState" class="empty">Nenhum evento operacional.</p>
       </article>
     </section>
 
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Mapa mock de rotas</h2>
+      </div>
+      <div id="mapBoard" class="map-board"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Alertas de SLA</h2>
+      </div>
+      <ul id="slaAlerts" class="sla-alerts"></ul>
+      <p id="emptyAlerts" class="empty">Nenhum alerta de SLA no momento.</p>
+    </section>
+
     <section class="panel architecture">
       <h2>Arquitetura tecnica</h2>
       <ul>
-        <li><code>backend/main.go</code> com endpoint REST e canal WebSocket.</li>
-        <li>Modelo de evento pronto para publicacao em fila (Redis/Kafka).</li>
+        <li><code>backend/main.go</code> com canal WebSocket, heartbeat e broadcast contínuo.</li>
+        <li>Modelo de evento pronto para publicação em fila (Redis/Kafka).</li>
       </ul>
     </section>
   </main>

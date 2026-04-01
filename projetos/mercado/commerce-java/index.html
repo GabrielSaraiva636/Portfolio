@@ -24,7 +24,7 @@
 
     <section class="metrics">
       <article><p>Pedidos ativos</p><strong id="kpiActive">0</strong></article>
-      <article><p>Em expedicao</p><strong id="kpiShipping">0</strong></article>
+      <article><p>Em separação/embalo</p><strong id="kpiShipping">0</strong></article>
       <article><p>Entregues</p><strong id="kpiDelivered">0</strong></article>
       <article><p>Ticket medio</p><strong id="kpiAverage">R$ 0,00</strong></article>
     </section>
@@ -51,6 +51,14 @@
             <input id="valueInput" type="number" min="1" step="0.01" required />
           </label>
           <label>
+            SKU
+            <input id="skuInput" required placeholder="Ex: SKU-1029" />
+          </label>
+          <label>
+            Quantidade
+            <input id="qtyInput" type="number" min="1" required />
+          </label>
+          <label>
             Prazo (dias)
             <input id="deadlineInput" type="number" min="1" required />
           </label>
@@ -72,6 +80,7 @@
                 <th>Canal</th>
                 <th>Status</th>
                 <th>Valor</th>
+                <th>Estoque</th>
                 <th>Prazo</th>
                 <th>Acoes</th>
               </tr>
@@ -83,11 +92,19 @@
       </article>
     </section>
 
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Auditoria de pedidos</h2>
+      </div>
+      <ul id="auditList" class="audit-list"></ul>
+      <p id="emptyAudit" class="empty">Sem eventos de auditoria.</p>
+    </section>
+
     <section class="panel architecture">
       <h2>Arquitetura tecnica</h2>
       <ul>
-        <li><code>backend/build.gradle</code> com dependencias Spring.</li>
-        <li><code>backend/src/main/java/com/portfolio/commerce/OrderController.java</code> com endpoints REST.</li>
+        <li><code>backend/build.gradle</code> com dependências Spring e testes.</li>
+        <li><code>backend/src/main/java/com/portfolio/commerce/OrderController.java</code> com state machine + auditoria.</li>
       </ul>
     </section>
   </main>

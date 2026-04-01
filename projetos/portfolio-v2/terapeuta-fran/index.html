@@ -74,6 +74,10 @@
             </select>
           </label>
           <label>
+            Duração
+            <input id="serviceDuration" type="text" value="Selecione um serviço" readonly />
+          </label>
+          <label>
             Formato
             <select id="sessionMode" required>
               <option value="">Selecione</option>
@@ -96,6 +100,19 @@
               <option>19:00</option>
             </select>
           </label>
+          <label class="full">
+            Política de retenção
+            <select id="retentionPolicy" required>
+              <option value="">Selecione</option>
+              <option value="6">6 meses</option>
+              <option value="12">12 meses</option>
+              <option value="24">24 meses</option>
+            </select>
+          </label>
+          <label class="check full">
+            <input id="consentLgpd" type="checkbox" required />
+            Estou ciente e autorizo o uso dos dados para gestão da sessão (LGPD).
+          </label>
           <button class="primary" type="submit">Confirmar agendamento</button>
         </form>
         <p id="appointmentFeedback" class="feedback" aria-live="polite"></p>
@@ -114,8 +131,10 @@
                 <th>Serviço</th>
                 <th>Data</th>
                 <th>Hora</th>
+                <th>Duração</th>
                 <th>Formato</th>
                 <th>Status</th>
+                <th>Consent.</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -124,6 +143,14 @@
         </div>
         <p id="emptyAppointments" class="empty">Nenhum paciente encontrado para este filtro.</p>
       </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Lembretes enviados</h2>
+      </div>
+      <ul id="reminderLog" class="reminder-log"></ul>
+      <p id="emptyReminderLog" class="empty">Nenhum lembrete enviado ainda.</p>
     </section>
 
     <section class="panel testimonials">

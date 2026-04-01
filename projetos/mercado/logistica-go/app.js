@@ -1,5 +1,6 @@
-const STORAGE_KEY = "portfolio.project.logisticaGo";
+const STORAGE_KEY = "portfolio.project.logisticaGo.v2";
 const STATUS_FLOW = ["route", "done"];
+const WS_URL = "ws://localhost:8080/ws/events";
 
 const eventForm = document.getElementById("eventForm");
 const driverInput = document.getElementById("driverInput");
@@ -12,17 +13,27 @@ const seedBtn = document.getElementById("seedBtn");
 
 const timeline = document.getElementById("timeline");
 const emptyState = document.getElementById("emptyState");
+const mapBoard = document.getElementById("mapBoard");
+const slaAlerts = document.getElementById("slaAlerts");
+const emptyAlerts = document.getElementById("emptyAlerts");
+const wsStatus = document.getElementById("wsStatus");
+const lastHeartbeat = document.getElementById("lastHeartbeat");
+
 const kpiRoute = document.getElementById("kpiRoute");
 const kpiDelay = document.getElementById("kpiDelay");
 const kpiDone = document.getElementById("kpiDone");
 const kpiEta = document.getElementById("kpiEta");
 
+let socket = null;
+let reconnectAttempt = 0;
 let events = loadEvents();
+
 if (events.length === 0) {
   events = createSeed();
   saveEvents();
 }
 
+connectWebSocket();
 render();
 
 eventForm.addEventListener("submit", (event) => {
@@ -35,6 +46,7 @@ eventForm.addEventListener("submit", (event) => {
     destination: destinationInput.value.trim(),
     eta: Number(etaInput.value),
     status: "route",
+    updatedAt: new Date().toISOString(),
   };
 
   if (!delivery.driver || !delivery.vehicle || !delivery.origin || !delivery.destination || !delivery.eta) {
@@ -62,11 +74,14 @@ timeline.addEventListener("click", (event) => {
   if (action === "next") {
     const current = STATUS_FLOW.indexOf(selected.status);
     selected.status = STATUS_FLOW[Math.min(current + 1, STATUS_FLOW.length - 1)];
+    selected.eta = selected.status === "done" ? 0 : selected.eta;
+    selected.updatedAt = new Date().toISOString();
   }
 
   if (action === "delay") {
     selected.status = "delayed";
     selected.eta += 15;
+    selected.updatedAt = new Date().toISOString();
   }
 
   if (action === "delete") {
@@ -85,7 +100,8 @@ seedBtn.addEventListener("click", () => {
 });
 
 function render() {
-  timeline.innerHTML = events
+  const sorted = [...events].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+  timeline.innerHTML = sorted
     .map((event) => {
       const statusText = statusLabel(event.status);
       const disableNext = event.status === "done" ? "disabled" : "";
@@ -107,8 +123,35 @@ function render() {
     })
     .join("");
 
-  emptyState.style.display = events.length === 0 ? "block" : "none";
+  emptyState.style.display = sorted.length === 0 ? "block" : "none";
   updateKpi();
+  renderMap(sorted);
+  renderSlaAlerts(sorted);
+}
+
+function renderMap(list) {
+  const activeRoutes = list.filter((item) => item.status !== "done");
+  mapBoard.innerHTML = activeRoutes
+    .slice(0, 8)
+    .map((item, index) => {
+      const progress = Math.max(5, Math.min(95, 100 - item.eta));
+      return `
+        <article class="map-card" style="--delay:${index * 40}ms">
+          <strong>${escapeHtml(item.vehicle)}</strong>
+          <p>${escapeHtml(item.origin)} → ${escapeHtml(item.destination)}</p>
+          <div class="map-progress"><span style="width:${progress}%"></span></div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function renderSlaAlerts(list) {
+  const alerts = list.filter((item) => item.status === "delayed" || (item.status === "route" && item.eta > 60));
+  slaAlerts.innerHTML = alerts
+    .map((item) => `<li>${escapeHtml(item.vehicle)} em risco de SLA (${item.eta} min para ${escapeHtml(item.destination)}).</li>`)
+    .join("");
+  emptyAlerts.style.display = alerts.length === 0 ? "block" : "none";
 }
 
 function updateKpi() {
@@ -121,6 +164,96 @@ function updateKpi() {
   kpiDelay.textContent = String(delayed);
   kpiDone.textContent = String(done);
   kpiEta.textContent = `${etaAvg} min`;
+}
+
+function connectWebSocket() {
+  try {
+    socket = new WebSocket(WS_URL);
+  } catch {
+    scheduleReconnect();
+    return;
+  }
+
+  socket.addEventListener("open", () => {
+    reconnectAttempt = 0;
+    setWsStatus(true);
+    setFeedback("Canal websocket conectado.");
+  });
+
+  socket.addEventListener("message", (messageEvent) => {
+    let payload = null;
+    try {
+      payload = JSON.parse(messageEvent.data);
+    } catch {
+      return;
+    }
+
+    if (payload.type === "heartbeat") {
+      lastHeartbeat.textContent = new Date(payload.at || Date.now()).toLocaleTimeString("pt-BR");
+      return;
+    }
+
+    const event = normalizeIncomingEvent(payload);
+    if (!event) return;
+    upsertEvent(event);
+    saveEvents();
+    render();
+  });
+
+  socket.addEventListener("close", () => {
+    setWsStatus(false);
+    scheduleReconnect();
+  });
+
+  socket.addEventListener("error", () => {
+    setWsStatus(false);
+    socket?.close();
+  });
+}
+
+function scheduleReconnect() {
+  reconnectAttempt += 1;
+  const delay = Math.min(15000, 1000 * reconnectAttempt);
+  setTimeout(() => connectWebSocket(), delay);
+}
+
+function setWsStatus(isOnline) {
+  wsStatus.textContent = isOnline ? "WS Online" : "WS Offline";
+  wsStatus.classList.toggle("online", isOnline);
+  wsStatus.classList.toggle("offline", !isOnline);
+}
+
+function normalizeIncomingEvent(payload) {
+  if (!payload || typeof payload !== "object") return null;
+  if (!payload.id || !payload.driver || !payload.vehicle || !payload.origin || !payload.destination) return null;
+  return {
+    id: String(payload.id),
+    driver: String(payload.driver),
+    vehicle: String(payload.vehicle),
+    origin: String(payload.origin),
+    destination: String(payload.destination),
+    eta: Number(payload.eta || 0),
+    status: normalizeStatus(String(payload.status || "route")),
+    updatedAt: new Date().toISOString(),
+  };
+}
+
+function normalizeStatus(status) {
+  if (status === "delayed") return "delayed";
+  if (status === "done") return "done";
+  return "route";
+}
+
+function upsertEvent(incoming) {
+  const index = events.findIndex((item) => item.id === incoming.id);
+  if (index === -1) {
+    events.unshift(incoming);
+    return;
+  }
+  events[index] = {
+    ...events[index],
+    ...incoming,
+  };
 }
 
 function statusLabel(status) {
@@ -137,7 +270,10 @@ function setFeedback(message, isError = false) {
 function loadEvents() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((item) => item && typeof item.id === "string");
   } catch {
     return [];
   }
@@ -149,9 +285,36 @@ function saveEvents() {
 
 function createSeed() {
   return [
-    { id: createId(), driver: "Rodrigo", vehicle: "VAN-2041", origin: "CD Porto Alegre", destination: "Canoas", eta: 45, status: "route" },
-    { id: createId(), driver: "Luana", vehicle: "TRK-9910", origin: "CD Gravatai", destination: "Novo Hamburgo", eta: 70, status: "delayed" },
-    { id: createId(), driver: "Marcos", vehicle: "VAN-1183", origin: "CD Canoas", destination: "Sao Leopoldo", eta: 0, status: "done" },
+    {
+      id: createId(),
+      driver: "Rodrigo",
+      vehicle: "VAN-2041",
+      origin: "CD Porto Alegre",
+      destination: "Canoas",
+      eta: 45,
+      status: "route",
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: createId(),
+      driver: "Luana",
+      vehicle: "TRK-9910",
+      origin: "CD Gravatai",
+      destination: "Novo Hamburgo",
+      eta: 70,
+      status: "delayed",
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: createId(),
+      driver: "Marcos",
+      vehicle: "VAN-1183",
+      origin: "CD Canoas",
+      destination: "Sao Leopoldo",
+      eta: 0,
+      status: "done",
+      updatedAt: new Date().toISOString(),
+    },
   ];
 }
 
@@ -163,7 +326,7 @@ function createId() {
 }
 
 function escapeHtml(text) {
-  return text
+  return String(text)
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")

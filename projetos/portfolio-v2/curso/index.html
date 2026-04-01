@@ -42,7 +42,8 @@
 
     <section class="stats-grid">
       <article><p>Leads captados</p><strong id="statLeads">0</strong></article>
-      <article><p>Em contato</p><strong id="statContact">0</strong></article>
+      <article><p>Qualificados</p><strong id="statQualified">0</strong></article>
+      <article><p>Em proposta</p><strong id="statProposal">0</strong></article>
       <article><p>Matrículas</p><strong id="statEnrolled">0</strong></article>
       <article><p>Conversão</p><strong id="statConversion">0%</strong></article>
     </section>
@@ -64,6 +65,16 @@
             <input id="leadPhone" type="tel" required />
           </label>
           <label>
+            Origem
+            <select id="leadSource" required>
+              <option value="">Selecione</option>
+              <option value="Instagram">Instagram</option>
+              <option value="Google Ads">Google Ads</option>
+              <option value="YouTube">YouTube</option>
+              <option value="Indicação">Indicação</option>
+            </select>
+          </label>
+          <label>
             Nível atual
             <select id="leadLevel" required>
               <option value="">Selecione</option>
@@ -80,6 +91,10 @@
               <option value="Final de semana">Final de semana</option>
               <option value="Misto">Misto</option>
             </select>
+          </label>
+          <label class="trap" aria-hidden="true">
+            Site
+            <input id="leadWebsite" type="text" tabindex="-1" autocomplete="off" />
           </label>
           <label class="full">
             Objetivo
@@ -101,7 +116,10 @@
             <option value="all">Todos os status</option>
             <option value="Novo">Novo</option>
             <option value="Contato">Contato</option>
+            <option value="Qualificado">Qualificado</option>
+            <option value="Proposta">Proposta</option>
             <option value="Matriculado">Matriculado</option>
+            <option value="Perdido">Perdido</option>
           </select>
         </div>
         <div class="table-wrap">
@@ -109,9 +127,11 @@
             <thead>
               <tr>
                 <th>Nome</th>
+                <th>Origem</th>
                 <th>Perfil</th>
                 <th>Turno</th>
                 <th>Status</th>
+                <th>Perda</th>
                 <th>Data</th>
                 <th>Ações</th>
               </tr>
@@ -121,6 +141,14 @@
         </div>
         <p id="emptyLeads" class="empty">Nenhum lead no status selecionado.</p>
       </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Conversão por origem</h2>
+      </div>
+      <div id="sourceCards" class="source-cards"></div>
+      <p id="emptySources" class="empty">Sem dados suficientes para calcular conversão por origem.</p>
     </section>
 
     <section class="panel faq-panel">

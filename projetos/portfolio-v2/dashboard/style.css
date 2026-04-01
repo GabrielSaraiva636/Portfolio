@@ -67,6 +67,12 @@ button:hover {
   filter: brightness(1.04);
 }
 
+.ghost {
+  background: #edf2ff;
+  color: #2e4d80;
+  border: 1px solid #cbd8f4;
+}
+
 .danger {
   background: linear-gradient(130deg, var(--danger), #f57b90);
 }
@@ -193,6 +199,27 @@ button:hover {
   flex-wrap: wrap;
 }
 
+.filter-panel {
+  margin-top: 12px;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.filter-actions button {
+  min-width: 130px;
+}
+
 .form-grid {
   display: grid;
   gap: 10px;
@@ -214,7 +241,7 @@ label {
 
 .feedback {
   min-height: 20px;
-  margin-top: 8px;
+  margin-top: 10px;
   font-weight: 700;
   color: #1f6f4b;
 }
@@ -240,13 +267,54 @@ label {
   color: #ffffff;
 }
 
+.chart-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.chart-box h3 {
+  margin: 0 0 6px;
+  color: #365584;
+  font-size: 0.94rem;
+}
+
 canvas {
   width: 100%;
-  height: 250px;
-  margin-top: 8px;
+  height: 240px;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: linear-gradient(180deg, #f9fbff, #ffffff);
+}
+
+.monthly-cards {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.month-card {
+  border: 1px solid #d8e2f3;
+  border-radius: 14px;
+  padding: 12px;
+  background: linear-gradient(165deg, #f6f9ff, #ffffff);
+  display: grid;
+  gap: 4px;
+}
+
+.month-card p {
+  color: #5f78a4;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.month-card strong {
+  font-size: 1.1rem;
+}
+
+.month-card span {
+  color: #44608f;
+  font-size: 0.78rem;
 }
 
 .table-panel {
@@ -308,6 +376,10 @@ tbody tr:hover td {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .monthly-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .grid-layout {
     grid-template-columns: 1fr;
   }
@@ -329,7 +401,20 @@ tbody tr:hover td {
     grid-template-columns: 1fr;
   }
 
+  .filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .chip-filter {
     width: 100%;
+  }
+
+  .monthly-cards {
+    grid-template-columns: 1fr;
   }
 }

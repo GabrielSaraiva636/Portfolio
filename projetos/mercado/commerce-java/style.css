@@ -194,7 +194,7 @@ label {
 
 table {
   width: 100%;
-  min-width: 700px;
+  min-width: 980px;
   border-collapse: collapse;
 }
 
@@ -230,9 +230,24 @@ th {
   color: #fff3b8;
 }
 
+.status.picking {
+  background: #59472d;
+  color: #ffd9ab;
+}
+
+.status.packing {
+  background: #5e3f33;
+  color: #ffd0c4;
+}
+
 .status.delivered {
   background: #32503f;
   color: #d7ffe6;
+}
+
+.status.canceled {
+  background: #5d2f35;
+  color: #ffc5ca;
 }
 
 .action {
@@ -253,6 +268,32 @@ th {
 .action.delete {
   background: linear-gradient(130deg, #ff9fa3, #ffc6c8);
   color: #5b1920;
+}
+
+.action.reserve {
+  background: linear-gradient(130deg, #6fb8ff, #a8d5ff);
+  color: #123561;
+}
+
+.action.cancel {
+  background: linear-gradient(130deg, #ff9fa3, #ffc6c8);
+  color: #5b1920;
+}
+
+.audit-list {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.audit-list li {
+  color: #f1ceb0;
+}
+
+.action:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .empty {

@@ -217,6 +217,23 @@ label {
   font-weight: 700;
 }
 
+label.full {
+  grid-column: 1 / -1;
+}
+
+label.check {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+label.check input {
+  width: 18px;
+  height: 18px;
+  min-height: 18px;
+  margin-top: 3px;
+}
+
 .primary {
   grid-column: 1 / -1;
   color: #fff;
@@ -247,7 +264,7 @@ label {
 
 table {
   width: 100%;
-  min-width: 840px;
+  min-width: 1020px;
   border-collapse: collapse;
 }
 
@@ -306,6 +323,18 @@ th {
   background: linear-gradient(120deg, var(--danger), #f08d99);
 }
 
+.table-action.remind {
+  background: linear-gradient(120deg, #3f8ec7, #74b7e6);
+}
+
+.table-action.remind-email {
+  background: linear-gradient(120deg, #5a77be, #7f95d6);
+}
+
+.table-action.anonymize {
+  background: linear-gradient(120deg, #7f6b5d, #ab9788);
+}
+
 .table-action:disabled {
   opacity: 0.45;
   cursor: not-allowed;
@@ -316,6 +345,17 @@ th {
   margin-top: 10px;
   color: var(--muted);
   font-weight: 700;
+}
+
+.reminder-log {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.reminder-log li {
+  color: #365f5d;
 }
 
 .testimonials {

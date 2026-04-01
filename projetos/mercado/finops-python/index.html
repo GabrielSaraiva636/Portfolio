@@ -23,10 +23,29 @@
     </section>
 
     <section class="metrics">
-      <article><p>Receita</p><strong id="kpiIncome">R$ 0,00</strong></article>
-      <article><p>Custo</p><strong id="kpiExpense">R$ 0,00</strong></article>
-      <article><p>Saldo</p><strong id="kpiBalance">R$ 0,00</strong></article>
-      <article><p>Margem</p><strong id="kpiMargin">0%</strong></article>
+      <article><p>Receita</p><strong id="kpiIncome">R$ 0,00</strong><small id="deltaIncome">Δ 0%</small></article>
+      <article><p>Custo</p><strong id="kpiExpense">R$ 0,00</strong><small id="deltaExpense">Δ 0%</small></article>
+      <article><p>Saldo</p><strong id="kpiBalance">R$ 0,00</strong><small id="deltaBalance">Δ 0%</small></article>
+      <article><p>Margem</p><strong id="kpiMargin">0%</strong><small id="deltaMargin">Δ 0%</small></article>
+    </section>
+
+    <section class="panel filter-panel">
+      <div class="panel-head">
+        <h2>Comparação de período</h2>
+      </div>
+      <div class="filter-grid">
+        <label>
+          Mês atual
+          <input id="currentMonth" type="month" />
+        </label>
+        <label>
+          Mês de comparação
+          <input id="compareMonth" type="month" />
+        </label>
+        <div class="filter-actions">
+          <button id="applyCompareBtn" type="button">Aplicar comparação</button>
+        </div>
+      </div>
     </section>
 
     <section class="layout">
@@ -67,10 +86,39 @@
       <article class="panel">
         <div class="panel-head">
           <h2>Resumo por categoria</h2>
-          <button id="seedBtn" type="button">Carregar demo</button>
+          <div class="panel-actions">
+            <button id="seedBtn" type="button">Carregar demo</button>
+            <button id="exportCsvBtn" type="button">Exportar CSV</button>
+            <button id="exportXlsxBtn" type="button">Exportar XLSX</button>
+          </div>
         </div>
         <canvas id="chart" width="560" height="240"></canvas>
       </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Orçamento por categoria</h2>
+      </div>
+      <div class="budget-grid">
+        <label>
+          Categoria
+          <select id="budgetCategoryInput">
+            <option>Infra</option>
+            <option>Marketing</option>
+            <option>Vendas</option>
+            <option>Produto</option>
+            <option>Receita SaaS</option>
+          </select>
+        </label>
+        <label>
+          Limite mensal (R$)
+          <input id="budgetLimitInput" type="number" min="1" step="0.01" />
+        </label>
+        <button id="saveBudgetBtn" type="button">Salvar limite</button>
+      </div>
+      <ul id="budgetAlerts" class="budget-alerts"></ul>
+      <p id="emptyAlerts" class="empty">Nenhum alerta de orçamento.</p>
     </section>
 
     <section class="panel table-panel">
@@ -95,8 +143,8 @@
     <section class="panel architecture">
       <h2>Arquitetura tecnica</h2>
       <ul>
-        <li><code>backend/main.py</code> com endpoint de consolidacao por categoria.</li>
-        <li>Modelo de entrada compativel com ETL simples em Python.</li>
+        <li><code>backend/main.py</code> com endpoints de resumo, comparação, alertas e exportação.</li>
+        <li>Modelo de entrada compatível com ETL simples em Python/Pandas.</li>
       </ul>
     </section>
   </main>

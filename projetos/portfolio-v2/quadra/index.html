@@ -24,13 +24,13 @@
         <p class="eyebrow">Projeto realista</p>
         <h1>Show de Bola - Gestão de Reservas</h1>
         <p class="subtitle">
-          Simulação de operação diária de quadra com cadastro de reservas, controle de pagamento e filtros para atendimento.
+          Operação da quadra com bloqueio real por duração, agenda semanal visual e simulador de confirmação por WhatsApp e Pix.
         </p>
       </div>
       <div class="hero-chips">
         <span>JavaScript ES2023</span>
         <span>LocalStorage</span>
-        <span>UX Dashboard</span>
+        <span>Agenda semanal</span>
       </div>
     </section>
 
@@ -70,7 +70,7 @@
             <input id="reservationDate" type="date" required />
           </label>
           <label>
-            Hora
+            Hora inicial
             <select id="reservationHour" required>
               <option value="">Selecione</option>
               <option>18:00</option>
@@ -137,9 +137,8 @@
               <tr>
                 <th>Cliente</th>
                 <th>Data</th>
-                <th>Hora</th>
+                <th>Janela</th>
                 <th>Quadra</th>
-                <th>Duração</th>
                 <th>Valor</th>
                 <th>Pagamento</th>
                 <th>Ações</th>
@@ -151,9 +150,26 @@
         </div>
       </article>
     </section>
+
+    <section class="panel-grid">
+      <article class="card">
+        <div class="card-head">
+          <h2>Calendário semanal</h2>
+          <input id="weekBaseDate" type="date" />
+        </div>
+        <div id="weeklyBoard" class="calendar-grid"></div>
+      </article>
+
+      <article class="card">
+        <h2>Ações de pagamento (mock)</h2>
+        <p>Selecione ações "WhatsApp" ou "Pix" na tabela para preencher esta central.</p>
+        <div id="paymentPreview" class="payment-box">
+          <p>Nenhuma ação selecionada.</p>
+        </div>
+      </article>
+    </section>
   </main>
 
   <script type="module" src="./app.js"></script>
 </body>
 </html>
-

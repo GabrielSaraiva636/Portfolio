@@ -166,7 +166,7 @@ button {
 .stats-grid {
   margin: 14px 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -227,6 +227,14 @@ label.full {
   grid-column: 1 / -1;
 }
 
+label.trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 label.check {
   align-items: flex-start;
   flex-direction: row;
@@ -263,7 +271,7 @@ label.check input {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 760px;
+  min-width: 980px;
 }
 
 th,
@@ -298,9 +306,32 @@ th {
   color: #1f4e8f;
 }
 
+.status-chip.qualificado {
+  background: #def7ef;
+  color: #1a6b48;
+}
+
+.status-chip.proposta {
+  background: #efe6ff;
+  color: #573c8f;
+}
+
 .status-chip.matriculado {
   background: #ddf6e7;
   color: #1f6a3c;
+}
+
+.status-chip.perdido {
+  background: #ffe3e5;
+  color: #8a2f39;
+}
+
+.lost-reason {
+  min-height: 32px;
+  font-size: 0.73rem;
+  border-radius: 10px;
+  border: 1px solid #dfcbb9;
+  margin-bottom: 6px;
 }
 
 .table-action {
@@ -320,9 +351,48 @@ th {
   background: linear-gradient(120deg, #d7586e, #f18d9d);
 }
 
+.table-action.lose {
+  background: linear-gradient(120deg, #bf6a2c, #df9b57);
+}
+
+.table-action.restore {
+  background: linear-gradient(120deg, #5e82be, #8eaef1);
+}
+
 .table-action:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+}
+
+.source-cards {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.source-card {
+  border: 1px solid #e1d1c2;
+  border-radius: 12px;
+  background: linear-gradient(160deg, #fff7ee, #fffdf9);
+  padding: 12px;
+  display: grid;
+  gap: 4px;
+}
+
+.source-card p {
+  color: #8c6040;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.source-card strong {
+  font-size: 1.24rem;
+}
+
+.source-card span {
+  color: #6d4f3a;
+  font-size: 0.8rem;
 }
 
 .empty {
@@ -365,12 +435,16 @@ th {
 
 @media (max-width: 1040px) {
   .stats-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .hero,
   .content-grid {
     grid-template-columns: 1fr;
+  }
+
+  .source-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -381,6 +455,11 @@ th {
   }
 
   .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid,
+  .source-cards {
     grid-template-columns: 1fr;
   }
 }

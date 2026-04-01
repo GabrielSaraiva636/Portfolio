@@ -26,7 +26,7 @@
         <p class="eyebrow">Projeto realista</p>
         <h1>Dashboard de Performance Comercial</h1>
         <p class="subtitle">
-          Painel com métricas de aquisição e conversão, alimentado por eventos reais de formulário e persistência local.
+          Painel com aquisição, conversão, filtro por período e leitura mensal de receita para decisões de growth.
         </p>
       </div>
       <div class="chip-list">
@@ -37,10 +37,38 @@
     </section>
 
     <section class="stats-grid">
-      <article class="metric-card"><p>Leads totais</p><strong id="metricLeads">0</strong></article>
-      <article class="metric-card"><p>Vendas totais</p><strong id="metricSales">0</strong></article>
+      <article class="metric-card"><p>Leads no filtro</p><strong id="metricLeads">0</strong></article>
+      <article class="metric-card"><p>Vendas no filtro</p><strong id="metricSales">0</strong></article>
       <article class="metric-card"><p>Conversão média</p><strong id="metricRate">0%</strong></article>
-      <article class="metric-card"><p>Faturamento</p><strong id="metricRevenue">R$ 0,00</strong></article>
+      <article class="metric-card"><p>Receita no filtro</p><strong id="metricRevenue">R$ 0,00</strong></article>
+    </section>
+
+    <section class="panel filter-panel">
+      <div class="panel-head">
+        <h2>Filtro avançado</h2>
+      </div>
+      <div class="filter-grid">
+        <label>
+          Data inicial
+          <input id="rangeStart" type="date" />
+        </label>
+        <label>
+          Data final
+          <input id="rangeEnd" type="date" />
+        </label>
+        <div class="filter-actions">
+          <button id="applyRangeBtn" type="button">Aplicar período</button>
+          <button id="clearRangeBtn" type="button" class="ghost">Limpar período</button>
+        </div>
+      </div>
+      <div class="chip-filter" id="channelFilters">
+        <button type="button" class="active" data-channel="all">Todos</button>
+        <button type="button" data-channel="Instagram">Instagram</button>
+        <button type="button" data-channel="Google Ads">Google Ads</button>
+        <button type="button" data-channel="Indicacao">Indicação</button>
+        <button type="button" data-channel="WhatsApp">WhatsApp</button>
+      </div>
+      <p id="entryFeedback" class="feedback" aria-live="polite"></p>
     </section>
 
     <section class="grid-layout">
@@ -75,22 +103,31 @@
           </label>
           <button type="submit" class="primary">Salvar lançamento</button>
         </form>
-        <p id="entryFeedback" class="feedback" aria-live="polite"></p>
       </article>
 
       <article class="panel">
         <div class="panel-head">
-          <h2>Evolução diária</h2>
-          <div class="chip-filter" id="channelFilters">
-            <button type="button" class="active" data-channel="all">Todos</button>
-            <button type="button" data-channel="Instagram">Instagram</button>
-            <button type="button" data-channel="Google Ads">Google Ads</button>
-            <button type="button" data-channel="Indicacao">Indicação</button>
-            <button type="button" data-channel="WhatsApp">WhatsApp</button>
+          <h2>Visual analítico</h2>
+        </div>
+        <div class="chart-grid">
+          <div class="chart-box">
+            <h3>Receita diária</h3>
+            <canvas id="trendCanvas" width="760" height="240"></canvas>
+          </div>
+          <div class="chart-box">
+            <h3>Conversão por canal</h3>
+            <canvas id="conversionCanvas" width="760" height="220"></canvas>
           </div>
         </div>
-        <canvas id="trendCanvas" width="760" height="250"></canvas>
       </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Snapshot mensal</h2>
+      </div>
+      <div id="monthlyCards" class="monthly-cards"></div>
+      <p id="emptySnapshot" class="empty">Sem dados mensais para o filtro atual.</p>
     </section>
 
     <section class="panel table-panel">
